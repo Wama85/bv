@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python Flask MongoDB Login Register logout with Jquery ajax and password hash</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/static/js/signUp.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="/">Home</a></li>
+                    <li role="presentation"><a href="/login">Sign In</a></li>
+                    <li role="presentation"><a href="/signUp">Sign Up</a></li>
+                </ul>
+            </nav>
+            <img src="/static/img/logo.png" alt="Flask_Icon.png"/ > 
+        </div>
+      <div class="jumbotron">
+        <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Crear<small> Usuarios</small></h3>
+              </div>
+        <div id="message"></div>
+        <form class="form-signin">
+        <div class="form-group">
+        <label for="exampleInputNombre">Nombre</label>
+        <input type="text" class="form-control" name="txtnombre" id="exampleInputnombre" placeholder="Nombre del usuario">
+        </div>
+        <div class="form-group">
+        <label for="exampleInputApellido">Apellido</label>
+        <input type="text" class="form-control" name="txtapellido" id="exampleInputapellido" placeholder="Apellido del usuario">
+        </div>
+                 
+        <div class="form-group">
+                    <label for="exampleInputEmail1">Dirección de Correo</label>
+                    <input type="email" name="txtmail" class="form-control" id="exampleInputEmail1" placeholder="Ingrese correo">
+                  </div>
+        <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+         <div class="form-group">
+                    <label>Tipo</label>
+                    <select class="form-control select2" style="width: 100%;" name="cbxtipo">
+                      <option selected="selected" value="ADMIN">ADMINISTRADOR</option>
+                      <option value="INVITADO">INVITADO</option>
+                     
+                     
+                    </select>
+                  </div>
+        <div class="form-group mb-0">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="cbxtermino" class="custom-control-input" id="exampleCheck1">
+                      <label class="custom-control-label" for="exampleCheck1">Acepto los <a href="#">terminos del servicio</a>.</label>
+                    </div>
+                  </div>
+        <p><button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Agregar</button></p>
+      </form>
+      </div>
+       <footer class="main-footer">
+  
+    </div>
+  <strong>Copyright &copy; 2023 <a href="#">BV</a>.</strong>
+ 
+  <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 1
+  </div>
+</footer>  
+
+
+
+  </body>
+</html>

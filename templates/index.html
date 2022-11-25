@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEX</title>
+    <link rel="stylesheet" href="static/css/estilos.css">
+</head>
+<body>
+ 
+  <div class="encabezado">
+      
+      <div id="imagen-principal"><img src="static/imagenes/Recurso 5.png" alt="TITULO DEL LIBRO"></div>
+      <a id="nav" href="/">
+      <div class="tittle">
+          
+                <div id="titulo-principal">TU B.V</div>  
+      </div>
+      </a>
+      <div class="contenedor-flexible-2">
+          <div class="elemento-flexible-2"><a id="nav" href="/">INICIO</a></div>
+                   
+       </div>
+          
+      
+  </div>   
+    <div class="index">
+        <div class="contenido"> 
+            <h3>TU 
+               <br> BIBLIOTECA</h3>
+            <p>
+                Bienvenido a tu biblioteca virtual, un lugar donde podras adquirir más conocimientos.
+            </p>
+            <div class="btn"><a href="/login">INICIAR SESION</a></div>
+        </div>
+        <div class="imagen">
+            <img src="static/imagenes/Recurso 8.png" alt="TITULO DEL LIBRO">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+<footer>
+    <div class="contenedor-flexible-3">
+        <div class="elemento-flexible-3">&copy;2022 GRUPO 2</div>
+    <div class="elemento-flexible-4">
+    
+    <ul>
+        <li> <a href="#"><img src="static/imagenes/Recurso 1.png"/></a></li>
+        <li> <a href="#"><img src="static/imagenes/Recurso 2.png"/></a></li>
+        <li> <a href="#"><img src="static/imagenes/Recurso 3.png"/></a></li>
+    </ul>
+
+    </div>
+    </div>
+</footer>  
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
+    </script>
+    
+</body>
+</html>

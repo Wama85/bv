@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CATALOGO</title>
+    <link rel="stylesheet" href="static/css/estilos.css">
+</head>
+
+<body>
+    <div class="encabezado">
+        
+        <div id="imagen-principal"><img src="static/imagenes/Recurso 5.png" alt="TITULO DEL LIBRO"></div>
+        <a id="nav" href="index.html">
+        <div class="tittle">
+            
+                  <div id="titulo-principal">TU B.V</div>  
+        </div>
+        </a>
+        <div class="contenedor-flexible-2">
+            <div class="elemento-flexible-2"><a id="nav" href="/">INICIO</a></div>
+            <div class="elemento-flexible-2"><a id="nav" href="/userHome">CATÁLOGO</a></div>
+            <div class="elemento-flexible-2"><a id="nav" href="/novedades">NOVEDADES</a></div>
+            <div class="elemento-flexible-2"><a id="nav" href="acercade.html">ACERCA DE</a></div>
+            
+         </div>
+            
+        
+    </div>
+    <div id="contenido-catalogo">
+    <div id="row-1">
+        <div id="panel-izquierdo">
+        <img src="static/imagenes/Recurso 4.png" alt="">
+        </div>
+        <h2>FILTRO</h2>
+       
+        
+        <button class="accordion">CATEGORÍA</button>
+        <div class="panel">
+            
+           <div class="form-check">
+             <label class="form-check-label">
+                BIOGRAFIAS
+               <input type="checkbox" class="form-check-input" name="cbbio" id="" value="checkedValue">
+             </label>
+           </div>
+           <div class="form-check">
+            <label class="form-check-label">
+               TECNOLOGÍAS
+              <input type="checkbox" class="form-check-input" name="cbtec" id="" value="checkedValue">
+              
+            </label>
+          </div>
+        </div>
+        
+        <button class="accordion">TIPO</button>
+        <div class="panel">
+            <div class="form-check">
+                <label class="form-check-label">
+                   REVISTA
+                  <input type="checkbox" class="form-check-input" name="cbrev" id="" value="checkedValue">
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  ARTÍCULO
+                  <input type="checkbox" class="form-check-input" name="cbart" id="" value="checkedValue">
+                </label>
+              </div>
+        </div>
+        <button class="accordion">AÑO</button>
+        <div class="panel">
+            <div class="form-check">
+                <label class="form-check-label">
+                   REVISTA
+                  <input type="checkbox" class="form-check-input" name="cbrev" id="" value="checkedValue">
+                </label>
+              </div>
+        </div>
+        
+
+
+    </div>
+    <div id="row-2">
+        <h1>CATÁLOGO</h1>
+    <form action="/action_page.php">
+        <label for="fname">Buscar por titulo del libro</label>
+        <input type="text" id="fname" name="txttitulo" placeholder="Ingrese título del libro">
+    
+        <label for="lname">Busqueda por autor</label>
+        <input type="text" id="lname" name="txtautor" placeholder="Ingrese nombre del autor">
+    
+        <label for="lname">Busqueda por Editorial</label>
+        <input type="text" id="lname" name="txteditorial" placeholder="Ingrese nombre de la editorial">
+      
+        <input type="submit" value="BUSCAR">
+      </form>
+      <div id="clear"></div>
+      <h1>RESULTADOS DE BUSQUEDA</h1>
+      <div id="flex-contenedor-libros">
+        <div id="item-libros"><img src="static/imagenes/Recurso 7.png" alt="TITULO DEL LIBRO">
+            <div id="contenido-titulo">TITULO DEL LIBRO ksdkdj dkdkjdk kfjk</div>   
+        </div>
+    </div>
+
+    </div>
+
+    </div>  
+
+ 
+    
+
+    <footer>
+        <div class="contenedor-flexible-3">
+            <div class="elemento-flexible-3">&copy;2022 GRUPO 2</div>
+        <div class="elemento-flexible-4">
+        
+        <ul>
+            <li> <a href="#"><img src="static/imagenes/Recurso 1.png"/></a></li>
+            <li> <a href="#"><img src="static/imagenes/Recurso 2.png"/></a></li>
+            <li> <a href="#"><img src="static/imagenes/Recurso 3.png"/></a></li>
+        </ul>
+    
+        </div>
+        </div>
+    </footer>  
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+          });
+        }
+        </script>
+        
+</body>
+
+
+</html>

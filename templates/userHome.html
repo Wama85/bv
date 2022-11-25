@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login Register logout with Jquery ajax, json and MySQLdb and password hash</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="/userHome">Dashboard</a></li>
+                    <li role="presentation"><a href="/logout">Log Out</a></li>
+                </ul>
+            </nav>
+            <img src="/static/images/Flask_Icon.png" alt="Flask_Icon.png"/ > 
+        </div>
+      <div class="jumbotron">
+        <h1>Dashboard <small> Welcome {{session.sessionusername}}</small></h1>
+      </div>      
+        <footer class="footer">
+            <p>©tutorial101.blogspot.com</p>
+        </footer>
+    </div>
+</body>
+</html>
