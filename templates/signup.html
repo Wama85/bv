@@ -7,7 +7,8 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="/static/js/signUp.js"></script>
+  <link rel="stylesheet" href="/static/plugins/fontawesome-free/css/all.min.css">
+<script src="static/js/signUp.js"></script>
 </head>
 <body>
     <div class="container">
@@ -27,7 +28,7 @@
                 <h3 class="card-title">Crear<small> Usuarios</small></h3>
               </div>
         <div id="message"></div>
-        <form class="form-signin">
+        <form class="form-signin" action="" method="POST">
         <div class="form-group">
         <label for="exampleInputNombre">Nombre</label>
         <input type="text" class="form-control" name="txtnombre" id="exampleInputnombre" placeholder="Nombre del usuario">
@@ -60,7 +61,7 @@
                       <label class="custom-control-label" for="exampleCheck1">Acepto los <a href="#">terminos del servicio</a>.</label>
                     </div>
                   </div>
-        <p><button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="button">Agregar</button></p>
+        <p><button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Agregar</button></p>
       </form>
       </div>
        <footer class="main-footer">
