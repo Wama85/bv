@@ -25,16 +25,14 @@ def index():
         password2 = request.form.get("password2")
         tipo = request.form.get("cbxtipo")
         
-        nombre_found = records.find_one({"nombre": nombre})
+        
         email_found = records.find_one({"email": email})
-        if nombre_found:
-            message = 'html:There already is a user by that name'
-            return render_template('index.html', message=message)
+        
         if email_found:
-            message = 'html:This email already exists in database'
+            message = 'html:Este correo ya existe en la base de datos'
             return render_template('index.html', message=message)
         if password1 != password2:
-            message = 'html:Passwords should match!'
+            message = 'html:La contraseña no es igual'
             return render_template('index.html', message=message)
         else:
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
@@ -140,8 +138,11 @@ def login():
     
        
         email_found = records.find_one({"email": email})
-        if records.find_one({"tipo": "ADMIN"}):
+        tipo_found = records.find_one({"tipo":"ADMIN"})
+        if tipo_found:
             return render_template('home.html')
+        else:
+            return render_template('catalogo.html')
         if email_found:
             email_val = email_found['email']
             passwordcheck = email_found['password']
