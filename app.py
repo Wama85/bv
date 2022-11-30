@@ -11,6 +11,7 @@ records = db.user
 libros_r=db.libros
 autores_r=db.autores
 comentarios_r=db.comentarios
+categoria_r=db.categoria
 
 queryuser=[{'$count':'Contar'}]
 totales_autor=autores_r.aggregate(queryuser)
@@ -27,7 +28,8 @@ querycoment=[{'$count':'ContarComentarios'}]
 totales_comentarios=comentarios_r.aggregate(querycoment)
 for total_comentario in totales_comentarios:
     print(total_comentario)
-    
+todoscate_l=categoria_r.find()
+
 title="PROYECTO BV"
 @app.route('/')
 def main():
@@ -109,7 +111,7 @@ def inlibros():
             libros_r.insert_one(libros_input)
    
         message = 'Datos ingresados correctamente'   
-    return render_template('libros.html',m=message,t_libro=total_libro)
+    return render_template('libros.html',m=message,t_libro=total_libro,todoscate=todoscate_l)
 
 @app.route("/insertautores", methods=['post', 'get'])
 def inautores():
@@ -140,6 +142,30 @@ def inautores():
    
         message = 'Datos ingresados correctamente'   
     return render_template('autores.html',message=message)
+
+@app.route("/insertcategorias", methods=['post', 'get'])
+def incategorias():
+    message = ''
+    
+    if request.method == "POST":
+        nombre = request.form.get("txtnombre")
+        
+        
+        nombre_found = categoria_r.find_one({"nombre": nombre})
+        if nombre_found:
+            message = 'Ya existe la categoria'
+            return render_template('categoria.html', message=message, todoscate=todoscate_l)
+        else:
+            categoria_input = {
+             'nombre': nombre,
+            
+             
+            }
+       
+            categoria_r.insert_one(categoria_input)
+   
+        message = 'Datos ingresados correctamente'   
+    return render_template('categoria.html',message=message, todoscate=todoscate_l)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -186,6 +212,7 @@ def update ():
 
 @app.route("/actionlibro", methods=['POST'])
 def actionlibro_db ():
+    todoslibros_l=libros_r.find()
     titulo = request.values.get("txttitulo")
     autor= request.values.get("txtautor")
     descripcion = request.values.get("txtdescripcion")
@@ -240,7 +267,7 @@ def logged_in():
 
 @app.route('/novedades')
 def novedades_ing():
-    libros_l=libros_r.find()
+    libros_l=libros_r.find().limit(10)
     if "email" in session:
         email = session["email"]
         return render_template('novedades.html', email=email,todoslibros=libros_l)
@@ -249,9 +276,10 @@ def novedades_ing():
     
 @app.route('/catalogo')
 def catalogo_ing():
+    libros_l=libros_r.find()
     if "email" in session:
         email = session["email"]
-        return render_template('catalogo.html', email=email)
+        return render_template('catalogo.html', email=email,todoslibros=libros_l)
     else:
         return redirect(url_for("login"))
     
@@ -260,7 +288,7 @@ def verlibros_bd():
     todoslibros_l=libros_r.find()
     if "email" in session:
         email = session["email"]
-        return render_template('verlibros.html', email=email,todoslibros=todoslibros_l)
+        return render_template('verlibros.html', email=email,todoslibros=todoslibros_l,todoscate=todoscate_l)
     else:
         return redirect(url_for("login"))
 
@@ -273,7 +301,15 @@ def verautores_bd():
     else:
         return redirect(url_for("login"))
     
-    
+@app.route('/vistas')
+def vistas_bd():
+    id=request.values.get("_id")
+    task=libros_r.find({"_id":ObjectId(id)})
+    if "email" in session:
+        email = session["email"]
+        return render_template('vistas.html', email=email,tasks=task,t=title)
+    else:
+        return redirect(url_for("login"))  
 @app.route("/updateautores")
 def update_autor ():
     id=request.values.get("_id")
@@ -316,7 +352,15 @@ def elimlibro_bd():
         return render_template('verlibros.html', email=email,todoslibros=todoslibros_l)
     else:
         return redirect(url_for("login"))
-
+    
+@app.route('/buscar', methods=['GET'])
+def buscar_ing():
+    categoria=request.values.get("txtbuscar")
+    
+    todoslibros_l=libros_r.find({"Categoría":categoria})
+    
+   
+    return render_template('catalogo.html',todoslibros=todoslibros_l)
 @app.route('/home')
 def adminhome():
     if "email" in session:

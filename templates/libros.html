@@ -224,12 +224,11 @@
                   <div class="form-group">
                     <label>Categoría</label>
                     <select class="form-control select2" style="width: 100%;" name="cbxcategoria">
-                      <option selected="selected">TECNOLOGIA</option>
-                      <option>BIOGRAFIAS</option>
-                      <option>AUTOBIOGRAFIAS</option>
-                      <option>AUTOAYUDA</option>
-                      <option>CIENTIFICOS</option>
-                      <option>HUMOR</option>
+                      <option selected="selected">CATEGORIA...</option>
+                      {% for listcate in todoscate %}
+                      <option>{{listcate["nombre"]}}</option>
+                      
+                      {% endfor%}
                     </select>
                   </div>
                   <div class="form-group">

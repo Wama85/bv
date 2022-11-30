@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISTAS</title>
+    <link rel="stylesheet" href="static/css/estilos.css">
+    <link rel="stylesheet" href="static/dist/css/adminlte.min.css">
+</head>
+
+<body>
+    <div class="encabezado">
+        
+        <div id="imagen-principal"><img src="static/imagenes/Recurso 5.png" alt="TITULO DEL LIBRO"></div>
+        <a id="nav" href="/">
+        <div class="tittle">
+            
+                  <div id="titulo-principal">{{t}}</div>  
+        </div>
+        </a>
+        <div class="contenedor-flexible-2">
+          <div class="elemento-flexible-2"><a id="nav" href="/">INICIO</a></div>
+          <div class="elemento-flexible-2"><a id="nav" href="/catalogo">CATÁLOGO</a></div>
+          <div class="elemento-flexible-2"><a id="nav" href="/novedades">NOVEDADES</a></div>
+          <div class="elemento-flexible-2"><a id="nav" href="acercade.html">ACERCA DE</a></div>
+          
+       </div>
+            
+
+
+
+    </div>
+    {% for task in tasks %} 
+    <div id="contenido-catalogo">
+    <div id="row-1">
+        <div id="panel-izquierdo">
+        <img src="template/imagenes/Recurso 7.png" alt="">
+        </div>
+        <h2>{{task["Titulo"]}}</h2>
+        <h3>AUTOR: {{task["Autor"]}} </h3>
+        <h3>EDITORIAL: {{task["Editorial"]}} </h3>
+        <h3>AÑO: {{task["Fechapublicacion"]}} </h3>
+        <button class="accordion">COMENTARIOS</button>
+        <div class="panel">
+            <div class="form-check">
+              </div>
+        </div>
+        
+    </div>
+  
+       <div id="row-2">
+     
+        <h1>{{task["Titulo"]}}</h1>
+        <hr>
+        <embed src="static/pdf/{{task["Archivo"]}}" type = "application/pdf" width = "100%" height="100%"/>
+        <hr>
+        <h2>Comentarios</h2>
+        <div id="flex-contenedor-libros"></div>
+        
+        <label for="lname">Correo: </label>
+        <input type="text" id="lname" name="txtcorreo" placeholder="Ingrese su correo">
+
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea class="form-control" rows="3" placeholder="Ingrese texto ..." name="txtdescripcion"></textarea>
+        </div>
+
+        <input type="submit" value="ENVIAR">
+
+       </div>  
+
+    </div>
+    {% endfor %}
+    
+    
+
+
+
+
+   
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+          });
+        }
+        </script>
+      <footer>
+        <div class="contenedor-flexible-3">
+            <div class="elemento-flexible-3">&copy;2022 GRUPO 2</div>
+        <div class="elemento-flexible-4">
+        
+        <ul>
+            <li> <a href="#"><img src="static/imagenes/Recurso 1.png"/></a></li>
+            <li> <a href="#"><img src="static/imagenes/Recurso 2.png"/></a></li>
+            <li> <a href="#"><img src="static/imagenes/Recurso 3.png"/></a></li>
+        </ul>
+    
+        </div>
+        </div>
+    </footer>     
+</body>
+
+</html>

@@ -13,7 +13,7 @@
     <div class="encabezado">
         
         <div id="imagen-principal"><img src="static/imagenes/Recurso 5.png" alt="TITULO DEL LIBRO"></div>
-        <a id="nav" href="index.html">
+        <a id="nav" href="/">
         <div class="tittle">
             
                   <div id="titulo-principal">TU B.V</div>  
@@ -21,7 +21,7 @@
         </a>
         <div class="contenedor-flexible-2">
             <div class="elemento-flexible-2"><a id="nav" href="/">INICIO</a></div>
-            <div class="elemento-flexible-2"><a id="nav" href="/logged_in">CATÁLOGO</a></div>
+            <div class="elemento-flexible-2"><a id="nav" href="/catalogo">CATÁLOGO</a></div>
             <div class="elemento-flexible-2"><a id="nav" href="/novedades">NOVEDADES</a></div>
             <div class="elemento-flexible-2"><a id="nav" href="acercade.html">ACERCA DE</a></div>
             
@@ -85,27 +85,32 @@
     </div>
     <div id="row-2">
         <h1>CATÁLOGO</h1>
-    <form action="/action_page.php">
-        <label for="fname">Buscar por titulo del libro</label>
-        <input type="text" id="fname" name="txttitulo" placeholder="Ingrese título del libro">
+    <form action="/buscar" method="GET">
+        <label for="fname">Buscar por categoria libro</label>
+        <div class="form-group">
+          
+          <select class="form-control select2" style="width: 100%;" name="txtbuscar">
+            <option selected="selected">TECNOLOGIA</option>
+            <option>BIOGRAFIAS</option>
+            <option>AUTOBIOGRAFIAS</option>
+            <option>AUTOAYUDA</option>
+            <option>CIENTIFICOS</option>
+            <option>HUMOR</option>
+          </select>
+        </div>
     
-        <label for="lname">Busqueda por autor</label>
-        <input type="text" id="lname" name="txtautor" placeholder="Ingrese nombre del autor">
-    
-        <label for="lname">Busqueda por Editorial</label>
-        <input type="text" id="lname" name="txteditorial" placeholder="Ingrese nombre de la editorial">
+        
       
         <input type="submit" value="BUSCAR">
       </form>
       <div id="clear"></div>
       <h1>RESULTADOS DE BUSQUEDA</h1>
       <div id="flex-contenedor-libros">
-        <div id="item-libros"><img src="static/imagenes/Recurso 7.png" alt="TITULO DEL LIBRO">
-            <div id="contenido-titulo">TITULO DEL LIBRO ksdkdj dkdkjdk kfjk</div>   
+       {% for listlibros in todoslibros %}
+        <div id="item-libros" style="padding-left:15px;"><img width="150" height="210" src="static/imagenes/portadas/{{listlibros["Miniatura"]}}" alt="{{listlibros["Titulo"]}}">
+            <div id="contenido-titulo"><a href="./vistas?_id={{listlibros['_id']}}">{{listlibros["Titulo"]}}</a></div>   
         </div>
-        <div id="item-libros"><img src="static/imagenes/Recurso 7.png" alt="TITULO DEL LIBRO">
-          <div id="contenido-titulo">TITULO DEL LIBRO ksdkdj dkdkjdk kfjk</div>   
-      </div>
+       {% endfor%}
       </div>
       
 
