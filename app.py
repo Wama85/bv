@@ -36,8 +36,7 @@ def main():
 @app.route("/insertuser", methods=['post', 'get'])
 def index():
     message = ''
-    if "email" in session:
-        return redirect(url_for("logged_in"))
+   
     if request.method == "POST":
         nombre = request.form.get("txtnombre")
         apellido = request.form.get("txtapellido")
@@ -155,7 +154,7 @@ def login():
         password = request.form.get("inputPassword")
        
         email_found = records.find_one({"email": email})
-       
+        
         
         if email_found:
             email_val = email_found['email']
@@ -164,7 +163,7 @@ def login():
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
                 session["email"] = email_val
                 return redirect(url_for('logged_in'))
-            
+                
                 
             else:
                 if "email" in session:
@@ -213,11 +212,32 @@ def novedades_ing():
     else:
         return redirect(url_for("login"))
     
+@app.route('/verlibros')
+def verlibros_bd():
+    todoslibros_l=libros_r.find()
+    if "email" in session:
+        email = session["email"]
+        return render_template('verlibros.html', email=email,todoslibros=todoslibros_l)
+    else:
+        return redirect(url_for("login"))
+
+@app.route('/elimlibro')
+def elimlibro_bd():
+    todoslibros_l=libros_r.find()
+    if "email" in session:
+        email = session["email"]
+        key=request.values.get("_id")
+        print(key)
+        libros_r.delete_one({"_id":ObjectId(key)})
+        return render_template('verlibros.html', email=email,todoslibros=todoslibros_l)
+    else:
+        return redirect(url_for("login"))
+
 @app.route('/home')
 def adminhome():
     if "email" in session:
         email = session["email"]
-        return render_template('home.html', email=email)
+        return render_template('home.html', email=email,total_user=total_user,t_libro=total_libro,c=total_comentario)
     else:
         return redirect(url_for("login"))
 #end of code to run it
