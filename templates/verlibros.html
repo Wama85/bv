@@ -146,36 +146,7 @@
             </ul>
           </li>
        
-       <li class="nav-item">
-         <a href="#" class="nav-link">
-           <i class="nav-icon fas fa-edit"></i>
-           <p>
-             ACTUALIZAR
-             <i class="fas fa-angle-left right"></i>
-           </p>
-         </a>
-         <ul class="nav nav-treeview">
-           <li class="nav-item">
-             <a href="/updatelibros" class="nav-link">
-               <i class="far fa-circle nav-icon"></i>
-               <p>Actualizar Libros</p>
-             </a>
-           </li>
-            <li class="nav-item">
-              <a href="/updatetautores" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Actualizar Autores</p>
-              </a>
-            </li>
-         
-           <li class="nav-item">
-             <a href="/updateuser" class="nav-link">
-               <i class="far fa-circle nav-icon"></i>
-               <p>Actualizar Usuarios</p>
-             </a>
-           </li>
-         </ul>
-       </li>
+      
        
       
           <li class="nav-item">
@@ -246,7 +217,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  
+                  {% if todoslibros[0] %}
                   {% for listlibros in todoslibros %}
                   <tr>
                     <td>{{listlibros["ISBN"]}}</td>
@@ -254,10 +225,13 @@
                     <td>{{listlibros["Categoría"]}}</td>
                     <td>{{listlibros["Tipo"]}}</td>
                     <td>{{listlibros["Numpaginas"]}}</td>
-                    <td><button type="submit"  class="btn btn-primary">MODIFICAR</button></td>
+                    <td><a href="./updatelibros?_id={{listlibros['_id']}}"><button type="submit"  class="btn btn-primary">MODIFICAR</button></a></td>
                     <td><a href="./elimlibro?_id={{listlibros['_id']}}"><button type="submit"  class="btn btn-primary">ELIMINAR</button></a></td>
                   </tr>
                   {% endfor%}
+                  {% else %}
+                  <h4>No hay libros en esta lista</h4>
+                  {% endif %}
                   </tbody>
                   <tfoot>
                   <tr>

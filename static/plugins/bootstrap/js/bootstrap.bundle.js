@@ -6753,7 +6753,7 @@
   var CLASS_NAME_FADE = 'fade';
   var CLASS_NAME_HIDE = 'hide';
   var CLASS_NAME_SHOW = 'show';
-  var CLASS_NAME_SHOWING = 'showing';
+  var CLASS_NAME_SHOWING = 'Resultado';
   var EVENT_CLICK_DISMISS = "click.dismiss" + EVENT_KEY;
   var EVENT_HIDE = "hide" + EVENT_KEY;
   var EVENT_HIDDEN = "hidden" + EVENT_KEY;

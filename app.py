@@ -114,8 +114,7 @@ def inlibros():
 @app.route("/insertautores", methods=['post', 'get'])
 def inautores():
     message = ''
-    if "email" in session:
-        return redirect(url_for("logged_in"))
+    
     if request.method == "POST":
         nombre = request.form.get("txtnombre")
         apellido = request.form.get("txtapellido")
@@ -181,8 +180,43 @@ def login():
 @app.route("/updatelibros")
 def update ():
 	id=request.values.get("_id")
-	task=records.find_one({"_id":ObjectId(id)})
+	task=libros_r.find({"_id":ObjectId(id)})
 	return render_template('editlibros.html',tasks=task,t=title)
+
+
+@app.route("/actionlibro", methods=['POST'])
+def actionlibro_db ():
+    titulo = request.values.get("txttitulo")
+    autor= request.values.get("txtautor")
+    descripcion = request.values.get("txtdescripcion")
+    editorial = request.values.get("txteditorial")
+    tipo_libro = request.values.get("cbxtipo")
+    categoria = request.values.get("cbxcategoria")
+    numpaginas = request.values.get("txtnumpaginas")
+    fechapubli = request.values.get("txtfechapubli")
+    archivo_pdf = request.values.get("txtarchivo_pdf")
+    miniatura_jpg = request.values.get("txtminiatura_jpg")
+    edicion = request.values.get("txtedicion")
+       
+    id=request.values.get("_id")
+    
+    libros_r.update_one({"_id":ObjectId(id)},
+        {'$set':{ 
+        'Titulo':titulo,
+        'Autor': autor,
+        'Descripcion':descripcion,
+        'Editorial': editorial,
+        'Tipo': tipo_libro,
+        'Categoría': categoria,
+        'Numpaginas': numpaginas,
+        'Fechapublicacion': fechapubli,
+        'Archivo': archivo_pdf,
+       
+        'Miniatura': miniatura_jpg,
+        'EDICION': edicion
+        }
+        })
+    return redirect("/verlibros")
 
 
 @app.route("/logout", methods=["POST", "GET"])

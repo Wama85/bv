@@ -173,7 +173,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">INSERTAR LIBROS</li>
+              <li class="breadcrumb-item active">ACTUALIZAR LIBROS</li>
             </ol>
           </div>
         </div>
@@ -189,24 +189,31 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">AGREGAR LIBRO</h3>
+                <h3 class="card-title">ACTUALIZAR LIBRO</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <div id="message"></div>
-              <form id="quickForm" action="" method="POST">
+              <form id="quickForm" action="/actionlibro" method="POST">
+
+              {% for task in tasks %} 
+                  
                 <div class="card-body">
+               <div class="form-group">
+                 <label for="exampleInputISBN">ID</label>
+                 <input type="text" class="form-control" name="_id" id="exampleInputEmail1"  value="{{ task['_id'] }}">
+               </div>
                   <div class="form-group">
                     <label for="exampleInputISBN">ISBN</label>
-                    <input type="text" class="form-control" name="_id" id="exampleInputEmail1" placeholder="Ingrese ISBN" value="LB123">
+                    <input type="text" readonly class="form-control" name="txtisbn" id="exampleInputEmail1" placeholder="{{ task['ISBN'] }}" value="{{ task['ISBN'] }}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputTIULO">Título</label>
-                    <input type="text" class="form-control" name="txttitulo" id="exampleInputtxt" placeholder="Titulo del libro">
+                    <input type="text"  class="form-control" name="txttitulo" value="{{ task['Titulo'] }}" id="exampleInputtxt" placeholder="{{ task['Titulo'] }}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEDICION">Edición</label>
-                    <input type="text" class="form-control" name="txtedicion" id="exampleInputtxt" placeholder=" Nro Edicion">
+                    <input type="text" class="form-control" name="txtedicion" value="{{ task['EDICION'] }}" id="exampleInputtxt" placeholder="{{ task['EDICION'] }}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputAUTOR">Autor</label>
@@ -214,11 +221,11 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEDITORIAL">Editorial</label>
-                    <input type="text" class="form-control" name="txteditorial" id="exampleInputtxt" placeholder="Nombre de la Editorial">
+                    <input type="text" class="form-control" name="txteditorial" id="exampleInputtxt" value="{{ task['Editorial'] }}">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputNum">Número de páginas</label>
-                    <input type="text" class="form-control" name="txtnumpaginas" id="exampleInputtxt" placeholder="Número de páginas">
+                    <input type="text" class="form-control" name="txtnumpaginas" id="exampleInputtxt" value="{{ task['Numpaginas'] }}">
                   </div>
 
                   <div class="form-group">
@@ -245,16 +252,16 @@
                  
                   <div class="form-group">
                     <label>Descripción</label>
-                    <textarea class="form-control" rows="3" placeholder="Ingrese texto ..." name="txtdescripcion"></textarea>
+                    <textarea class="form-control" rows="3" name="txtdescripcion">{{ task['Descripcion'] }}</textarea>
                   </div>
                    <div class="form-group">
                      <label for="examplearchivopdf">Archivo</label>
-                     <input type="text" class="form-control" name="txtarchivo_pdf" id="exampleInputtxt" placeholder="Archivo pdf">
+                     <input type="text" class="form-control" name="txtarchivo_pdf" id="exampleInputtxt" value="{{ task['Archivo'] }}">
                    </div>
                    <div class="form-group">
                   <label>Fecha de publicación:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                        <input type="date" name="txtfechapubli" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                        <input type="date" name="txtfechapubli" value="{{ task['Fechapublicacion'] }}" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -264,15 +271,16 @@
                 
                 <div class="form-group">
                   <label for="exampleInputEdicion">Imagen Archivo:</label>
-                  <input  type="text" class="form-control" name="txtminiatura_jpg" id="exampleInputtxt" placeholder=".jpg">
+                  <input  type="text" class="form-control" name="txtminiatura_jpg" id="exampleInputtxt"  value="{{ task['Miniatura'] }}">
                 </div>
                   
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button id="btnSignUp"  type="submit" class="btn btn-primary">Agregar Libro</button>
+                  <button id="btnSignUp"  type="submit" class="btn btn-primary">Actualizar Libro</button>
                 </div>
+              {% endfor %}
               </form>
             </div>
           
