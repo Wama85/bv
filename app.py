@@ -13,10 +13,10 @@ autores_r=db.autores
 comentarios_r=db.comentarios
 
 queryuser=[{'$count':'Contar'}]
-totales_user=records.aggregate(queryuser)
+totales_autor=autores_r.aggregate(queryuser)
 
-for total_user in totales_user:  
-     print (total_user)
+for total_autor in totales_autor:  
+     print (totales_autor)
      
 querylibro=[{'$count':'Contarlibros'}]
 totales_libro=libros_r.aggregate(querylibro)
@@ -232,7 +232,7 @@ def logout():
 def logged_in():
     if "email" in session:
         email = session["email"]
-        return render_template('home.html', email=email,total_user=total_user,t_libro=total_libro,c=total_comentario)
+        return render_template('home.html', email=email,total_autor=total_autor,t_libro=total_libro,c=total_comentario)
     else:
         return redirect(url_for("login"))
 
@@ -240,9 +240,18 @@ def logged_in():
 
 @app.route('/novedades')
 def novedades_ing():
+    libros_l=libros_r.find()
     if "email" in session:
         email = session["email"]
-        return render_template('novedades.html', email=email)
+        return render_template('novedades.html', email=email,todoslibros=libros_l)
+    else:
+        return redirect(url_for("login"))
+    
+@app.route('/catalogo')
+def catalogo_ing():
+    if "email" in session:
+        email = session["email"]
+        return render_template('catalogo.html', email=email)
     else:
         return redirect(url_for("login"))
     
@@ -254,6 +263,47 @@ def verlibros_bd():
         return render_template('verlibros.html', email=email,todoslibros=todoslibros_l)
     else:
         return redirect(url_for("login"))
+
+@app.route('/verautores')
+def verautores_bd():
+    todosautores_l=autores_r.find()
+    if "email" in session:
+        email = session["email"]
+        return render_template('verautores.html', email=email,todosautores=todosautores_l)
+    else:
+        return redirect(url_for("login"))
+    
+    
+@app.route("/updateautores")
+def update_autor ():
+    id=request.values.get("_id")
+    task=autores_r.find({"_id":ObjectId(id)})
+    if "email" in session:
+        email = session["email"]
+        return render_template('editautores.html', email=email,tasks=task,t=title)
+    else:
+         return redirect(url_for("login"))
+@app.route("/actionautor", methods=['POST'])
+def actionautor_db ():
+    
+    nombre = request.values.get("txtnombre")
+    apellido = request.values.get("txtapellido")
+    direccion= request.values.get("txtdireccion")
+    mail = request.values.get("txtmail")
+    telefono = request.values.get("txttelefono")
+       
+    id=request.values.get("_id")
+    
+    autores_r.update_one({"_id":ObjectId(id)},
+        {'$set':{ 
+        'nombre': nombre,
+        'apellido':apellido,
+        'direccion': direccion,
+        'mail':mail,
+        'telefono': telefono
+        }
+        })
+    return redirect("/verautores")
 
 @app.route('/elimlibro')
 def elimlibro_bd():
@@ -271,7 +321,7 @@ def elimlibro_bd():
 def adminhome():
     if "email" in session:
         email = session["email"]
-        return render_template('home.html', email=email,total_user=total_user,t_libro=total_libro,c=total_comentario)
+        return render_template('home.html', email=email,total_autor=total_autor,t_libro=total_libro,c=total_comentario)
     else:
         return redirect(url_for("login"))
 #end of code to run it

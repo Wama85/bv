@@ -21,7 +21,7 @@
         </a>
         <div class="contenedor-flexible-2">
             <div class="elemento-flexible-2"><a id="nav" href="/">INICIO</a></div>
-              <div class="elemento-flexible-2"><a id="nav" href="/logged_in">CATÁLOGO</a></div>
+              <div class="elemento-flexible-2"><a id="nav" href="/catalogo">CATÁLOGO</a></div>
               <div class="elemento-flexible-2"><a id="nav" href="/novedades">NOVEDADES</a></div>
             <div class="elemento-flexible-2"><a id="nav" href="acercade.html">ACERCA DE</a></div>
             
@@ -39,10 +39,15 @@
             <h1>NOVEDADES</h1>
 
         </center>
+        
+        
+        
         <div id="flex-contenedor-libros">
-            <div id="item-libros"><img src="static/imagenes/Recurso 7.png" alt="TITULO DEL LIBRO">
-                <div id="contenido-titulo">TITULO DEL LIBRO ksdkdj dkdkjdk kfjk</div>   
+            {% for listlibros in todoslibros %}
+            <div id="item-libros" style="padding-left:15px;"><img width="150" height="210" src="static/imagenes/portadas/{{listlibros["Miniatura"]}}" alt="{{listlibros["Titulo"]}}">
+                <div id="contenido-titulo"><a href="">{{listlibros["Titulo"]}}</a></div>   
             </div>
+            {% endfor%}
         </div>
 
         </div>
