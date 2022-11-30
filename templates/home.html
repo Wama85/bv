@@ -42,7 +42,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/home" class="nav-link">Inicio</a>
+        <a href="/logged_in" class="nav-link">Inicio</a>
       </li>
     
     </ul>
@@ -92,7 +92,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/home" class="brand-link">
+    <a href="/logged_in" class="brand-link">
       <img src="static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">VIRTUAL BOOKS</span>
     </a>
@@ -162,6 +162,37 @@
             </ul>
           </li>
        
+       <li class="nav-item">
+         <a href="#" class="nav-link">
+           <i class="nav-icon fas fa-edit"></i>
+           <p>
+             ACTUALIZAR
+             <i class="fas fa-angle-left right"></i>
+           </p>
+         </a>
+         <ul class="nav nav-treeview">
+           <li class="nav-item">
+             <a href="/updatelibros" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+               <p>Actualizar Libros</p>
+             </a>
+           </li>
+            <li class="nav-item">
+              <a href="/updatetautores" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Actualizar Autores</p>
+              </a>
+            </li>
+         
+           <li class="nav-item">
+             <a href="/updateuser" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+               <p>Actualizar Usuarios</p>
+             </a>
+           </li>
+         </ul>
+       </li>
+       
       
           <li class="nav-item">
             <a href="pages/search/simple.html" class="nav-link">
@@ -192,7 +223,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">BIENVENIDO</h1>
+            <h1 class="m-0">BIENVENIDO {{email}}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -214,7 +245,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{t_libro["Contarlibros"]}}</h3>
 
                 <p>Libros Subidos</p>
               </div>
@@ -229,7 +260,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px"></sup></h3>
+                <h3>{{c["ContarComentarios"]}}<sup style="font-size: 20px"></sup></h3>
 
                 <p>Comentarios</p>
               </div>
@@ -244,7 +275,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{total_user["Contar"]}}</h3>
 
                 <p>Usuarios Registrados</p>
               </div>

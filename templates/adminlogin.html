@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BV</title>
+  <title>{{t}}</title>
 
 
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
@@ -19,8 +19,8 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Iniciar Sesion</p>
- {% if error %}
-   <div class="alert alert-danger">{{error}}</div>
+ {% if message %}
+   <div class="alert alert-danger">  {{message}}</div>
  {% endif %}
       <form action="/login" method="post">
         <div class="input-group mb-3">

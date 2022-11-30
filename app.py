@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, session
+from bson import ObjectId
 import pymongo
 import bcrypt
 
@@ -9,9 +10,29 @@ db = client.get_database('bv')
 records = db.user
 libros_r=db.libros
 autores_r=db.autores
+comentarios_r=db.comentarios
+
+queryuser=[{'$count':'Contar'}]
+totales_user=records.aggregate(queryuser)
+
+for total_user in totales_user:  
+     print (total_user)
+     
+querylibro=[{'$count':'Contarlibros'}]
+totales_libro=libros_r.aggregate(querylibro)
+for total_libro in totales_libro:  
+     print (total_libro)
+
+querycoment=[{'$count':'ContarComentarios'}]
+totales_comentarios=comentarios_r.aggregate(querycoment)
+for total_comentario in totales_comentarios:
+    print(total_comentario)
+    
+title="PROYECTO BV"
 @app.route('/')
 def main():
-    return render_template('index.html')
+    return render_template('index.html', t=title)
+
 @app.route("/insertuser", methods=['post', 'get'])
 def index():
     message = ''
@@ -29,10 +50,10 @@ def index():
         email_found = records.find_one({"email": email})
         
         if email_found:
-            message = 'html:Este correo ya existe en la base de datos'
+            message = 'Este correo ya existe en la base de datos'
             return render_template('index.html', message=message)
         if password1 != password2:
-            message = 'html:La contraseña no es igual'
+            message = 'La contraseña no es igual'
             return render_template('index.html', message=message)
         else:
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
@@ -47,9 +68,8 @@ def index():
 
 @app.route("/insertlibros", methods=['post', 'get'])
 def inlibros():
-    message = ''
-    if "email" in session:
-        return redirect(url_for("logged_in"))
+    message = 'INGRESE DATOS'
+   
     if request.method == "POST":
         isbn = request.form.get("txtisbn")
         titulo = request.form.get("txttitulo")
@@ -65,32 +85,32 @@ def inlibros():
         miniatura_jpg = request.form.get("txtminiatura_jpg")
         edicion = request.form.get("txtedicion")
         
-        isbn_found = records.find_one({"isbn": isbn})
+        isbn_found = libros_r.find_one({"ISBN": isbn})
         if isbn_found:
-            message = 'html:Este ISBN ya xiste en el registro'
-            return render_template('libros.html', message=message)
+            message = 'Este ISBN ya xiste en el registro'
+            return render_template('libros.html', m=message,t_libro=total_libro)
         else:
             libros_input = {
-             'isbn': isbn,
-             'titulo':titulo,
-             'autor': autor,
-             'descripcion':descripcion,
-             'editorial': editorial,
-             'tipo_libro': tipo_libro,
-             'categoria': categoria,
-             'numpaginas': numpaginas,
-             'fechapubli': fechapubli,
-             'archivo': archivo_pdf,
-             'estado': '1',
-             'cantador': '1',
-             'miniatura_jpg': miniatura_jpg,
-             'edicion': edicion
+             'ISBN': isbn,
+             'Titulo':titulo,
+             'Autor': autor,
+             'Descripcion':descripcion,
+             'Editorial': editorial,
+             'Tipo': tipo_libro,
+             'Categoría': categoria,
+             'Numpaginas': numpaginas,
+             'Fechapublicacion': fechapubli,
+             'Archivo': archivo_pdf,
+             'Estado': '1',
+             'Contador': '1',
+             'Miniatura': miniatura_jpg,
+             'EDICION': edicion
             }
        
             libros_r.insert_one(libros_input)
    
-        message = 'html:Datos ingresados correctamente'   
-    return render_template('libros.html',message=message)
+        message = 'Datos ingresados correctamente'   
+    return render_template('libros.html',m=message,t_libro=total_libro)
 
 @app.route("/insertautores", methods=['post', 'get'])
 def inautores():
@@ -103,13 +123,10 @@ def inautores():
         direccion= request.form.get("txtdireccion")
         mail = request.form.get("txtmail")
         telefono = request.form.get("txttelefono")
-       
         
-     
-        
-        nombre_found = records.find_one({"nombre": nombre, "apellido":apellido})
+        nombre_found = autores_r.find_one({"nombre": nombre, "apellido":apellido})
         if nombre_found:
-            message = 'html:Este autores ya xiste en el registro'
+            message = 'Este autores ya xiste en el registro'
             return render_template('autores.html', message=message)
         else:
             autores_input = {
@@ -123,26 +140,23 @@ def inautores():
        
             autores_r.insert_one(autores_input)
    
-        message = 'html:Datos ingresados correctamente'   
+        message = 'Datos ingresados correctamente'   
     return render_template('autores.html',message=message)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    message = 'html:Please login to your account'
+    message = 'Por favor ingrese correo y contraseña'
+    
     if "email" in session:
         return redirect(url_for("logged_in"))
-
+    
     if request.method == "POST":
         email = request.form.get("inputEmail")
         password = request.form.get("inputPassword")
-    
        
         email_found = records.find_one({"email": email})
-        tipo_found = records.find_one({"tipo":"ADMIN"})
-        if tipo_found:
-            return render_template('home.html')
-        else:
-            return render_template('catalogo.html')
+       
+        
         if email_found:
             email_val = email_found['email']
             passwordcheck = email_found['password']
@@ -150,15 +164,26 @@ def login():
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
                 session["email"] = email_val
                 return redirect(url_for('logged_in'))
+            
+                
             else:
                 if "email" in session:
                     return redirect(url_for("logged_in"))
-                message = 'Wrong password'
+                message = 'Contraseña Invalida'
                 return render_template('adminlogin.html', message=message)
+        
         else:
-            message = 'Email not found'
+            message = 'Correo no valido'
             return render_template('adminlogin.html', message=message)
     return render_template('adminlogin.html', message=message)
+
+
+#actualizar registros
+@app.route("/updatelibros")
+def update ():
+	id=request.values.get("_id")
+	task=records.find_one({"_id":ObjectId(id)})
+	return render_template('editlibros.html',tasks=task,t=title)
 
 
 @app.route("/logout", methods=["POST", "GET"])
@@ -168,19 +193,23 @@ def logout():
         return render_template("index.html")
     else:
         return render_template('index.html')
-@app.route('/catalogo')
-def catalogo():
- if "email" in session:
-     session.pop("email", None)
-     return render_template("catalogo.html")
- else:
-     return render_template('signout.html')
+
  
 @app.route('/logged_in')
 def logged_in():
     if "email" in session:
         email = session["email"]
-        return render_template('catalogo.html', email=email)
+        return render_template('home.html', email=email,total_user=total_user,t_libro=total_libro,c=total_comentario)
+    else:
+        return redirect(url_for("login"))
+
+
+
+@app.route('/novedades')
+def novedades_ing():
+    if "email" in session:
+        email = session["email"]
+        return render_template('novedades.html', email=email)
     else:
         return redirect(url_for("login"))
     
